@@ -1,0 +1,465 @@
+openapi: "3.1.0"
+
+info:
+  title: "Cinema_LascauxFullStackChallenge API"
+  description: >
+    This API provides endpoints to manage movies and their screening schedules.
+    It uses JWT Bearer Authentication for secure access. To use the API, obtain a JWT token via the /api/auth/login endpoint
+    and include it in the Authorization header as "Bearer {token}".
+  version: "1.0.0"
+  contact:
+    name: "API Support"
+    email: "support@example.com"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+
+servers:
+  - url: "http://localhost:8080"
+    description: "Local development server"
+
+tags:
+  - name: "Movies"
+    description: "Endpoints for movie operations"
+  - name: "Schedules"
+    description: "Endpoints for managing movie schedules"
+  - name: "Authentication"
+    description: "Endpoints for user authentication"
+
+security:
+  - bearerAuth: []
+
+paths:
+  /api/movies/{id}:
+    parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        description: "Unique identifier of the movie"
+        schema:
+          type: "integer"
+          format: "int64"
+    put:
+      tags:
+        - "Movies"
+      summary: "Update a movie"
+      description: "Updates an existing movie by its ID."
+      operationId: "updateMovie"
+      requestBody:
+        description: "Movie object that needs to be updated"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Movie"
+      responses:
+        "200":
+          description: "Movie updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - "Movies"
+      summary: "Delete a movie"
+      description: "Deletes a movie identified by its ID."
+      operationId: "deleteMovie"
+      responses:
+        "200":
+          description: "Movie deleted successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Void"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - "Movies"
+      summary: "Get a movie by ID"
+      description: "Retrieves details for a specific movie."
+      operationId: "getMovieById"
+      responses:
+        "200":
+          description: "Movie retrieved successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/movies:
+    post:
+      tags:
+        - "Movies"
+      summary: "Create a new movie"
+      description: "Creates a new movie record."
+      operationId: "createMovie"
+      requestBody:
+        description: "Movie object that needs to be created"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Movie"
+      responses:
+        "200":
+          description: "Movie created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - "Movies"
+      summary: "List all movies"
+      description: "Retrieves a list of all movies."
+      operationId: "getAllMovies"
+      responses:
+        "200":
+          description: "List of movies retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Movie"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/schedules/{id}:
+    parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        description: "Unique identifier of the schedule"
+        schema:
+          type: "integer"
+          format: "int64"
+    put:
+      tags:
+        - "Schedules"
+      summary: "Update a schedule"
+      description: "Updates an existing movie schedule by its ID."
+      operationId: "updateSchedule"
+      requestBody:
+        description: "MovieSchedule object that needs to be updated"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MovieSchedule"
+      responses:
+        "200":
+          description: "Schedule updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - "Schedules"
+      summary: "Delete a schedule"
+      description: "Deletes a movie schedule identified by its ID."
+      operationId: "deleteSchedule"
+      responses:
+        "200":
+          description: "Schedule deleted successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Void"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - "Schedules"
+      summary: "Get a schedule by ID"
+      description: "Retrieves details for a specific movie schedule."
+      operationId: "getScheduleById"
+      responses:
+        "200":
+          description: "Schedule retrieved successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/schedules:
+    post:
+      tags:
+        - "Schedules"
+      summary: "Create a new schedule"
+      description: "Creates a new movie schedule record."
+      operationId: "createSchedule"
+      requestBody:
+        description: "MovieSchedule object that needs to be created"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MovieSchedule"
+      responses:
+        "200":
+          description: "Schedule created successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - "Schedules"
+      summary: "List all schedules"
+      description: "Retrieves a list of all movie schedules."
+      operationId: "getAllSchedules"
+      responses:
+        "200":
+          description: "List of schedules retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/schedules/overlap:
+    get:
+      tags:
+        - "Schedules"
+      summary: "Get overlapping schedules"
+      description: >
+        Retrieves movie schedules that overlap a given date range.
+        Query parameters 'startDate' and 'endDate' (in YYYY-MM-DD format) are required.
+      operationId: "getOverlappingSchedules"
+      parameters:
+        - name: "startDate"
+          in: "query"
+          required: true
+          description: "Start date for the schedule overlap query (YYYY-MM-DD)"
+          schema:
+            type: "string"
+            format: "date"
+        - name: "endDate"
+          in: "query"
+          required: true
+          description: "End date for the schedule overlap query (YYYY-MM-DD)"
+          schema:
+            type: "string"
+            format: "date"
+      responses:
+        "200":
+          description: "Overlapping schedules retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/schedules/historical:
+    get:
+      tags:
+        - "Schedules"
+      summary: "Get historical schedules"
+      description: "Retrieves historical movie schedules."
+      operationId: "getHistoricalSchedules"
+      responses:
+        "200":
+          description: "Historical schedules retrieved successfully"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MovieSchedule"
+        "401":
+          description: "Unauthorized access"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/auth/login:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Authenticate user"
+      description: "Generates a JWT token for the user based on credentials."
+      operationId: "authenticateUser"
+      security: []  # Overrides global security for authentication
+      requestBody:
+        description: "User login credentials"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: "Authentication successful, JWT token returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtResponse"
+        "401":
+          description: "Authentication failed"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Movie:
+      type: "object"
+      description: "A movie entity"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: "Unique identifier for the movie"
+          example: 1
+        title:
+          type: "string"
+          description: "Title of the movie"
+          example: "The Great Adventure"
+        description:
+          type: "string"
+          description: "Brief description of the movie"
+          example: "An epic journey through space and time."
+      required:
+        - title
+    MovieSchedule:
+      type: "object"
+      description: "A schedule for a movie showing"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          description: "Unique identifier for the schedule"
+          example: 100
+        movie:
+          $ref: "#/components/schemas/Movie"
+          description: "The movie associated with this schedule"
+        startDate:
+          type: "string"
+          format: "date"
+          description: "Start date of the movie schedule"
+          example: "2025-03-01"
+        endDate:
+          type: "string"
+          format: "date"
+          description: "End date of the movie schedule"
+          example: "2025-03-31"
+      required:
+        - movie
+        - startDate
+        - endDate
+    LoginRequest:
+      type: "object"
+      description: "User credentials for authentication"
+      properties:
+        username:
+          type: "string"
+          description: "The username of the user"
+          example: "user@example.com"
+        password:
+          type: "string"
+          description: "The password of the user"
+          example: "securePassword123"
+      required:
+        - username
+        - password
+    JwtResponse:
+      type: "object"
+      description: "JWT token response"
+      properties:
+        token:
+          type: "string"
+          description: "JWT token"
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    Void:
+      type: "object"
+      description: "An empty response"
+    Error:
+      type: "object"
+      description: "Error response"
+      properties:
+        code:
+          type: "integer"
+          description: "Error code"
+          example: 401
+        message:
+          type: "string"
+          description: "Error message"
+          example: "Unauthorized access"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        JWT Bearer Token authentication.
+        Provide your token in the header as: "Bearer {token}"
+
+
