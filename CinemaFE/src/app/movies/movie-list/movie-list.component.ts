@@ -1,16 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Movie } from '../../core/api/models/movie';
 import { MoviesService } from '../../core/api/services/movies.service';
 import {MatIcon} from '@angular/material/icon';
 import {ConfirmDialogComponent} from '../../shared/confirm-dialog/confirm-dialog.component';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-movie-list',
   imports: [
-    MatIcon
+    MatIcon,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatIconButton,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatHeaderCellDef,
+    MatCellDef
   ],
   template: `
     <div class="container">

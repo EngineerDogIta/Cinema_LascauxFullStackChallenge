@@ -1,11 +1,20 @@
 import { Component, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent} from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle
+} from '@angular/material/dialog';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   imports: [
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose
+    MatDialogClose,
+    MatDialogTitle,
+    MatButton
   ],
   template: `
     <h2 mat-dialog-title>{{ data.title }}</h2>

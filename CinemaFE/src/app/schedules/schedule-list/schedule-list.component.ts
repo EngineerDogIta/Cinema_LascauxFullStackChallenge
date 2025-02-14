@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulesService } from '../../core/api/services/schedules.service';
 import { MovieSchedule } from '../../core/api/models/movie-schedule';
-import {MatAccordion, MatExpansionPanel} from '@angular/material/expansion';
+import {MatAccordion, MatExpansionPanel, MatExpansionPanelHeader} from '@angular/material/expansion';
 import {MatIcon} from '@angular/material/icon';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgForOf} from '@angular/common';
 import {MatIconButton} from '@angular/material/button';
 
 @Component({
@@ -11,9 +11,11 @@ import {MatIconButton} from '@angular/material/button';
   imports: [
     MatAccordion,
     MatExpansionPanel,
+    MatExpansionPanelHeader,
     MatIcon,
     DatePipe,
-    MatIconButton
+    MatIconButton,
+    NgForOf
   ],
   template: `
     <div class="container">
@@ -27,7 +29,7 @@ import {MatIconButton} from '@angular/material/button';
           <p>Start: {{ schedule.startDate | date }}</p>
           <p>End: {{ schedule.endDate | date }}</p>
 
-          <button mat-icon-button (click)="deleteSchedule(schedule.id)">
+          <button mat-icon-button (click)="deleteSchedule(schedule.id ?? 0)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-expansion-panel>

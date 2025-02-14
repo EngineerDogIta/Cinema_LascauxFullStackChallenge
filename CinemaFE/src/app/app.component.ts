@@ -32,24 +32,26 @@ import { AuthService } from './core/auth/auth.service';
       color: white;
       padding: 1rem;
     }
+
     nav ul {
       list-style-type: none;
       padding: 0;
     }
+
     nav ul li {
       display: inline;
       margin-right: 1rem;
     }
+
     nav a {
       color: white;
       text-decoration: none;
     }
-    nav a.active {
-      font-weight: bold;
-    }
+
     main {
       padding: 2rem;
     }
+
     footer {
       background-color: #333;
       color: white;
